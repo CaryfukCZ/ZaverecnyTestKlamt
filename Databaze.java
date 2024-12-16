@@ -36,7 +36,7 @@ public class Databaze {
      * Vyhledá zaznamy podle jmena a prijmení
      * @param jmeno
      * @param prijmeni
-     * @return
+     * @return vysledek
      */
     public ArrayList<Zaznam> najdiZaznam(String jmeno, String prijmeni) {
         ArrayList<Zaznam> nalezeni = new ArrayList<>();

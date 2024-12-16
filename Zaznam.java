@@ -4,7 +4,11 @@ public class Zaznam {
     private String prijmeni;
     private String vek;
     private String telefon;
-
+    
+    /**
+     * Konstruktor
+     * @return
+     */
     public String getJmeno() {
         return jmeno;
     }

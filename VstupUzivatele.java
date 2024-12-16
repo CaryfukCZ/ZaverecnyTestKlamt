@@ -8,7 +8,10 @@ public class VstupUzivatele {
     public VstupUzivatele() {
         databaze = new Databaze();
     }
-
+    
+    /**
+     * přidání nového uživatele
+     */
     public void pridejZaznam() {
         System.out.println("Zadejte jmeno:");
         String jmeno = scanner.nextLine();
@@ -22,14 +25,20 @@ public class VstupUzivatele {
 
 
     }
-
+    
+    /**
+     * vypsání vsech ulozenych zaznamu
+     */
     public void vypisZaznamy() {
         ArrayList<Zaznam> zaznamy = databaze.getZaznamy();
         for (Zaznam zaznam : zaznamy) {
             System.out.println(zaznam);
         }
     }
-
+    
+    /**
+     * vyhledání záznamu podle jmena a prijmení
+     */
     public void najdiZaznam() {
         System.out.println("Zadejte jmeno:");
         String jmeno = scanner.nextLine();
@@ -41,18 +50,28 @@ public class VstupUzivatele {
 
         }
     }
-
+    
+    /**
+     * ukončí program
+     */
     public void konecProgramu() {
         System.out.println("Konec programu");
         System.exit(0);
     }
-
+    
+    /**
+     * uvodní uvítání
+     */
     public void vypisUvod() {
         System.out.println();
         System.out.println("---------------------------");
         System.out.println("Evidence pojistenců");
         System.out.println("---------------------------");
     }
+    
+    /**
+     * menu ovladání
+     */
     public void vypisMenu() {
         System.out.println("Vyberte si akci:");
         System.out.println("1 - Přidat pojisteneho");
