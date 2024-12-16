@@ -18,6 +18,8 @@ public class Databaze {
      */
     public void pridejZaznam(String jmeno, String prijmeni, String vek, String telefon) {
         zaznamy.add(new Zaznam(jmeno, prijmeni, vek, telefon));
+        
+        //todo: Vymyslet jak to udělat aby to kontrolovala proměná v VstupUzivatele -> PridejZaznam.
         System.out.print("Data byla uložena. ");
 
 

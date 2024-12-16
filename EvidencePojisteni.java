@@ -33,7 +33,7 @@ public class EvidencePojisteni {
             System.out.print("Pokracujte libovolnou klavesou... ");
             scanner.nextLine();
 
-
+//TODO: Přepsat a dobře pojmenovat proměnne
 
         }
     }
