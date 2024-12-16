@@ -1,7 +1,10 @@
 import java.util.Scanner;
 
 public class EvidencePojisteni {
-
+    /**Hlavní metoda programu
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         VstupUzivatele vstupUzivatele = new VstupUzivatele();

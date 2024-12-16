@@ -14,6 +14,8 @@ public class VstupUzivatele {
      */
     
     //TODO: Zkus udělat metodu pro přidání zaznamu. Ať se to tak neopakuje.
+    
+   
     public void pridejZaznam() {
         System.out.println("Zadejte jmeno:");
         String jmeno = scanner.nextLine();
