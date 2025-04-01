@@ -29,6 +29,14 @@ public class Zaznam {
 	public String getPrijmeni() {
 		return prijmeni;
 	}
+
+	public String getVek() {
+		return vek;
+	}
+
+	public String getTelefon() {
+		return telefon;
+	}
 	
 	/**
 	 * Vrátí textovou reprezentaci záznamu.
@@ -36,6 +44,6 @@ public class Zaznam {
 	 */
 	@Override
 	public String toString() {
-		return STR." \{jmeno} \{prijmeni} \{vek} \{telefon}";
+		return String.format("%s %s, %s, %s", jmeno, prijmeni, vek, telefon);
 	}
 }

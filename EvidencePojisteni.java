@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class EvidencePojisteni {
-    /**Hlavní metoda programu
+    /**
+     * Hlavní metoda programu
      *
      * @param args
      */
@@ -17,13 +18,13 @@ public class EvidencePojisteni {
             System.out.println();
             switch (volba) {
                 case "1":
-                    vstupUzivatele.pridejZaznam();
+                    vstupUzivatele.pridejPojistence();
                     break;
                 case "2":
-                    vstupUzivatele.vypisZaznamy();
+                    vstupUzivatele.vypisPojistene();
                     break;
                 case "3":
-                    vstupUzivatele.najdiZaznam();
+                    vstupUzivatele.najdiPojistence();
                     break;
                 case "4":
                     vstupUzivatele.konecProgramu();
@@ -35,8 +36,6 @@ public class EvidencePojisteni {
 
             System.out.print("Pokracujte libovolnou klavesou... ");
             scanner.nextLine();
-
-//TODO: Přepsat a dobře pojmenovat proměnne
 
         }
     }
