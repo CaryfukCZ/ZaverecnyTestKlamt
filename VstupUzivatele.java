@@ -1,3 +1,4 @@
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,68 +15,18 @@ public class VstupUzivatele {
         return scanner.nextLine().trim();
     }
 
-    private String formatujJmeno(String jmeno) {
-        if (jmeno.isEmpty()) return "";
-
-        return jmeno.substring(0, 1).toUpperCase() + jmeno.substring(1).toLowerCase();
-    }
-
-    private String nactiJmeno(String typ) {
-        while (true) {
-            String jmeno = nactiVstup("Zadejte " + typ + ":");
-            if (jmeno.matches("[A-Za-zÁ-ž]+")) {
-                return formatujJmeno(jmeno);
-            }
-            System.out.println("Neplatné " + typ + "Použíjte pouze písmena.");
-        }
-    }
-
-    /**
-     * Validace vstupu Telefonní číslo
-     */
-    private String nactiTelefon() {
-        String telefon;
-        while (true) {
-
-            telefon = nactiVstup("Zadejte telefonní číslo:");
-            if (telefon.matches("\\d{9}")) {
-                return telefon;
-            }
-            System.out.println("Neplatné číslo! Zadejte 9 čísloc.");
-
-        }
-    }
-
-    /**
-     * Validace vstupu Věk
-     */
-
-    private int nactiVek() {
-        while (true) {
-            String vstup = nactiVstup("Zadejte vek:");
-            try {
-                int vek = Integer.parseInt(vstup);
-                if (vek > 0 && vek < 100) {
-                    return vek;
-                }
-                System.out.println("Neplatný věk! Zadejte číslo mezi 1 a 99.");
-            } catch (NumberFormatException e) {
-                System.out.println("Neplatný vstup! Zadejte číslo.");
-            }
-        }
-    }
-
     /**
      * přidání nového uživatele
      */
 
 
     public void pridejPojistence() {
-        String jmeno = nactiVstup("Zadejte jmeno:");
-        String prijmeni = nactiVstup("Zadejte prijmeni:");
-        String vek = nactiVstup("Zadejte vek:");
-        String telefon = nactiVstup("Zadejte telefon:");
-        databaze.pridejZaznam(jmeno, prijmeni, vek, telefon);
+        String jmeno = nactiValidovaneJmeno("Zadejte jméno:");
+        String prijmeni = nactiValidovaneJmeno("Zadejte příjmení:");
+        String telefon = nactiValidovanyTelefon();
+        int vek = nactiValidovanyVek();
+
+        databaze.pridejZaznam(jmeno, prijmeni, telefon, String.valueOf(vek));
     }
 
     /**
@@ -92,16 +43,78 @@ public class VstupUzivatele {
      * vyhledání záznamu podle jmena a prijmení
      */
     public void najdiPojistence() {
-        System.out.println("Zadejte jmeno:");
-        String jmeno = scanner.nextLine();
-        System.out.println("Zadejte prijmeni:");
-        String prijmeni = scanner.nextLine();
-        ArrayList<Zaznam> nalezeni = databaze.najdiZaznam(jmeno, prijmeni);
-        for (Zaznam zaznam : nalezeni) {
-            System.out.println(zaznam);
+        String jmeno = nactiValidovaneJmeno("Zadejte jméno:");
+        String prijmeni = nactiValidovaneJmeno("Zadejte příjmení:");
 
+        ArrayList<Zaznam> nalezeni = databaze.najdiZaznam(jmeno, prijmeni);
+
+        if (nalezeni.isEmpty()) {
+            System.out.println("Pojištěnec nebyl nalezen.");
+        } else {
+            for (Zaznam zaznam : nalezeni) {
+                System.out.println(zaznam);
+            }
         }
     }
+
+    /**
+     * Metoda  pro načtění a validaci vstupu
+     */
+
+    private String nactiValidovaneJmeno(String zprava) {
+        String vstup;
+        do {
+            System.out.println(zprava);
+            vstup = scanner.nextLine().trim(); //Odtsraní mezery a převede na malá písmena
+
+
+            if (vstup.isEmpty()) {
+                System.out.println("Toto pole nesmí bytut prázdné!");
+            }
+        } while (vstup.isEmpty());
+        return vstup;
+    }
+
+    /**
+     * Metoda pro odstranění diakritiky
+     *
+     * @param text
+     * @return
+     */
+
+    private String odstranDiakritiku(String text) {
+        return Normalizer.normalize(text, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+    private String nactiValidovanyTelefon() {
+        String telefon;
+        do {
+            telefon = nactiVstup("Zadejte telefon (9 číslic):");
+            if (!telefon.matches("\\d{9}")) {
+                System.out.println("Telefon musí obsahovat přesně 9 číslic!");
+            }
+        } while (!telefon.matches("\\d{9}"));
+        return telefon;
+    }
+
+    private int nactiValidovanyVek() {
+        int vek = -1;
+        do {
+            String vstup = nactiVstup("Zadejte věk (0–120):");
+            try {
+                vek = Integer.parseInt(vstup);
+                if (vek < 0 || vek > 120) {
+                    System.out.println("Věk musí být mezi 0 a 120!");
+                    vek = -1;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Zadejte platné číslo!");
+            }
+        } while (vek == -1);
+        return vek;
+    }
+
 
     /**
      * ukončí program
@@ -117,7 +130,7 @@ public class VstupUzivatele {
     public void vypisUvod() {
         System.out.println();
         System.out.println("---------------------------");
-        System.out.println("Evidence pojistenců");
+        System.out.println("Evidence pojistených");
         System.out.println("---------------------------");
     }
 

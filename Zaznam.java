@@ -47,3 +47,5 @@ public class Zaznam {
 		return String.format("%s %s, %s, %s", jmeno, prijmeni, vek, telefon);
 	}
 }
+
+
